@@ -2,7 +2,15 @@
 
 Production-grade persistent runtime for autonomous coding agents.
 
-Built for a personal AI agent that ships PRs, manages infrastructure, and maintains a live multi-module SaaS application with zero human engineers writing code. This is the daemon that makes it all work.
+> **Full 5-tier memory architecture spec →** [docs/architecture.md](docs/architecture.md)
+
+## The Proof It Works
+
+Powers a live production ERP that has shipped **382+ PRs**, passed **3,131 unit + 265 integration tests**, and maintains **134 frontend pages across 11 modules** — with zero human engineers writing code. The agent dispatches sub-agents, reviews their work, and deploys. This runtime is what makes that possible.
+
+---
+
+Built for a personal AI agent that ships PRs, manages infrastructure, and maintains a live multi-module SaaS application. This is the daemon that makes it all work.
 
 ## What It Does
 
