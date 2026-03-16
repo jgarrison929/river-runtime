@@ -1,0 +1,44 @@
+{
+  "name": "river-runtime",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc && cp -r src/web dist/web",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@fastify/multipart": "^9.4.0",
+    "@fastify/websocket": "^11.2.0",
+    "@grammyjs/runner": "^2.0.3",
+    "@grammyjs/transformer-throttler": "^1.2.1",
+    "better-sqlite3": "^12.8.0",
+    "croner": "^10.0.1",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1",
+    "fastify": "^5.8.2",
+    "grammy": "^1.41.1",
+    "sqlite-vec": "0.1.7-alpha.2",
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild"
+    ]
+  }
+}

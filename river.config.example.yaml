@@ -1,0 +1,72 @@
+# Copy to river.config.yaml and fill in your values
+daemon:
+  port: 3002
+  workspace: ./workspace
+
+identity:
+  files:
+    - SOUL.md
+    - MEMORY.md
+    - USER.md
+    - AGENTS.md
+    - IDENTITY.md
+    - TOOLS.md
+    - HEARTBEAT.md
+
+llm:
+  primary:
+    provider: anthropic
+    model: claude-opus-4-6              # Opus 4.6 — adaptive thinking, 1M context
+    max_tokens: 16384
+    context_window: 1000000
+  fallbacks:
+    - provider: anthropic
+      model: claude-sonnet-4-6          # Sonnet 4.6 — adaptive thinking, 1M context
+      max_tokens: 16384
+      context_window: 1000000
+    - provider: openai
+      model: gpt-4o
+      context_window: 128000
+
+channels:
+  telegram:
+    enabled: true
+    token: ${TELEGRAM_BOT_TOKEN}
+    allowed_users:
+      - "YOUR_TELEGRAM_USER_ID"
+  discord:
+    enabled: false
+    token: ${DISCORD_BOT_TOKEN}
+    guilds:
+      - id: "guild_id_here"
+        channels:
+          - "channel_id_here"
+
+tools:
+  exec:
+    enabled: true
+    timeout_ms: 30000
+    shell: /bin/bash
+  web_search:
+    enabled: true
+    brave_api_key: ${BRAVE_API_KEY}
+  web_fetch:
+    enabled: true
+
+data:
+  dir: ./data
+  sessions_dir: ./data/sessions
+
+scheduler:
+  heartbeat:
+    enabled: true
+    interval_minutes: 30
+    prompt: "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
+    notification_channel: telegram:YOUR_TELEGRAM_USER_ID
+  jobs_file: ./data/jobs.json
+
+compaction:
+  enabled: true
+  threshold_tokens: 800000    # 80% of 1M context — leave room for system prompt + response
+  keep_recent_messages: 40    # keep more history verbatim
+  summary_model: claude-sonnet-4-20250514
