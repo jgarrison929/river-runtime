@@ -4,6 +4,8 @@ An experimental, always-on runtime for AI coding agents: persistent memory, patt
 
 > **How this was built:** I designed the system architecture and directed AI coding agents to implement it. I don't hand-write the code; I write the specs, review the output, and decide what ships.
 
+**Status:** No longer actively developed. I now work with frontier agent harnesses, and this repo stays up as a reference for the memory and orchestration design.
+
 > **Full 5-tier memory architecture spec →** [docs/architecture.md](docs/architecture.md)
 
 ## Where It's Used
