@@ -1,12 +1,14 @@
 # river-runtime
 
-Production-grade persistent runtime for autonomous coding agents.
+An experimental, always-on runtime for AI coding agents: persistent memory, pattern learning, an MCP server, and Telegram + webchat channels.
+
+> **How this was built:** I designed the system architecture and directed AI coding agents to implement it. I don't hand-write the code; I write the specs, review the output, and decide what ships.
 
 > **Full 5-tier memory architecture spec →** [docs/architecture.md](docs/architecture.md)
 
-## The Proof It Works
+## Where It's Used
 
-Powers a live production ERP that has shipped **382+ PRs**, passed **3,131 unit + 265 integration tests**, and maintains **134 frontend pages across 11 modules** — with zero human engineers writing code. The agent dispatches sub-agents, reviews their work, and deploys. This runtime is what makes that possible.
+My main project built this way is [Pitbull](https://github.com/jgarrison929/pitbull), a construction ERP. You can see its full history in the [pull requests](https://github.com/jgarrison929/pitbull/pulls?q=is%3Apr+is%3Amerged).
 
 ---
 
@@ -62,6 +64,12 @@ Webchat  ──┘        │           └── Memory (5-tier architecture)
 
 Tools are filtered per channel — Telegram gets conversational tools only, webchat gets everything.
 
+> **⚠️ Safety: experimental, run in a VM or sandbox.** These tools give the model real control of the machine:
+> - The computer-control tools only check that coordinates are numbers. They run PowerShell (`-ExecutionPolicy Bypass`) from WSL to move the mouse, click, type, press keys, and take screenshots of the Windows desktop. Nothing asks you to confirm an action first.
+> - `exec` runs any shell command. It has a timeout and a short blocklist that mainly stops the agent from killing its own process. That blocklist is not a security boundary.
+> - The file tools accept any path.
+> - Telegram never gets exec, file, or computer-control tools (set `allowed_users` to limit who can message the bot). Webchat gets every tool and has no login. The server listens on `0.0.0.0`, so keep the port off any network you don't control.
+
 ## Quick Start
 
 ```bash
@@ -113,7 +121,7 @@ src/
 ├── tools/           # exec, filesystem, web search/fetch, computer control
 ├── utils/           # Logger, health server
 └── web/             # Webchat UI (single-file HTML, dark theme)
-test/                # 120+ vitest tests
+tests/               # 120+ vitest tests
 ```
 
 ## How It Works
@@ -129,4 +137,4 @@ The agent gets smarter over time because patterns from past work inform future d
 
 ## License
 
-MIT
+[MIT](LICENSE)
